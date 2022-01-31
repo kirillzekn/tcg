@@ -9,11 +9,46 @@ trigger:
 pool:
   vmImage: ubuntu-latest
 
-steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
+stages:
+- stage: create resource group & deploy template
+  jobs:
+  - job: copy_ARM_template_to_artifact_DIR
+    steps:
+      - task: CopyFiles@2
+        inputs:
+          SourceFolder: 'computerVision/'
+          Contents: '**'
+          TargetFolder: '$(Build.ArtifactStagingDirectory)'
 
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+- stage: VALIDATE create resource group & deploy template
+  jobs:
+  - job: VALIDATE
+    steps:
+    - task: AzureResourceManagerTemplateDeployment@3
+      inputs:
+        deploymentScope: 'Resource Group'
+        azureResourceManagerConnection: 'Pay-As-You-Go(7eb18278-1682-4ad9-9148-814e2b6039f9)'
+        subscriptionId: '7eb18278-1682-4ad9-9148-814e2b6039f9'
+        action: 'Create Or Update Resource Group'
+        resourceGroupName: 'TCG'
+        location: 'West Europe'
+        templateLocation: 'Linked artifact'
+        csmFile: '$(Build.ArtifactStagingDirectory)/azuretemplate.json'
+        deploymentMode: 'Validation'
+
+- stage: incrementally create resource group & deploy template
+  jobs:
+  - job: INCREMENTAL
+    steps:        
+    - task: AzureResourceManagerTemplateDeployment@3
+      inputs:
+        deploymentScope: 'Resource Group'
+        azureResourceManagerConnection: 'Pay-As-You-Go(7eb18278-1682-4ad9-9148-814e2b6039f9)'
+        subscriptionId: '7eb18278-1682-4ad9-9148-814e2b6039f9'
+        action: 'Create Or Update Resource Group'
+        resourceGroupName: 'TCG'
+        location: 'West Europe'
+        templateLocation: 'Linked artifact'
+        csmFile: '$(Build.ArtifactStagingDirectory)/azuretemplate.json'
+        deploymentMode: 'Validation'
+

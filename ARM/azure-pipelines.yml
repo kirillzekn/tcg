@@ -19,7 +19,7 @@ stages:
       - task: CopyFiles@2
         displayName: Copy Files To Artifact Dir
         inputs:
-          SourceFolder: '/'
+          SourceFolder: '.'
           Contents: 'azuredeploy.json'
           TargetFolder: '$(Build.ArtifactStagingDirectory)'
       - bash: "ls $(Build.ArtifactStagingDirectory)"

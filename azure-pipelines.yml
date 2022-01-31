@@ -36,7 +36,7 @@ stages:
         resourceGroupName: 'TCG'
         location: 'West Europe'
         templateLocation: 'Linked artifact'
-        csmFile: '$(Build.ArtifactStagingDirectory)/azuretemplate.json'
+        csmFile: '$(Build.ArtifactStagingDirectory)/azuredeploy.json'
         deploymentMode: 'Validation'
 
 - stage: INCREMENTALLY_APPLY_ARM
@@ -53,6 +53,6 @@ stages:
         resourceGroupName: 'TCG'
         location: 'West Europe'
         templateLocation: 'Linked artifact'
-        csmFile: '$(Build.ArtifactStagingDirectory)/azuretemplate.json'
+        csmFile: '$(Build.ArtifactStagingDirectory)/azuredeploy.json'
         deploymentMode: 'Validation'
 

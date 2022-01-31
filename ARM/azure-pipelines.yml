@@ -19,8 +19,8 @@ stages:
       - task: CopyFiles@2
         displayName: Copy Files To Artifact Dir
         inputs:
-          SourceFolder: 'computerVision/'
-          Contents: '**'
+          SourceFolder: 'ARM/'
+          Contents: 'azuredeploy.json'
           TargetFolder: '$(Build.ArtifactStagingDirectory)'
 
       - task: AzureResourceManagerTemplateDeployment@3

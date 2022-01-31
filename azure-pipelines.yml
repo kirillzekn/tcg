@@ -21,6 +21,8 @@ stages:
           SourceFolder: 'computerVision/'
           Contents: '**'
           TargetFolder: '$(Build.ArtifactStagingDirectory)'
+      - bash: "ls $(Build.ArtifactStagingDirectory)"
+    
 
 - stage: VALIDATE_ARM
   jobs:

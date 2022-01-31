@@ -22,6 +22,7 @@ stages:
           SourceFolder: 'ARM/'
           Contents: 'azuredeploy.json'
           TargetFolder: '$(Build.ArtifactStagingDirectory)'
+      - bash: "ls $(Build.ArtifactStagingDirectory)"
 
       - task: AzureResourceManagerTemplateDeployment@3
         displayName: Validate ARM template

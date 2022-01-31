@@ -10,21 +10,21 @@ pool:
   vmImage: ubuntu-latest
 
 stages:
-- stage: Copy_Files
+- stage: Copy_Validate_Apply
   
   jobs:
   - job:
     displayName: Copy files
     steps:
       - task: CopyFiles@2
+        displayName: Copy Files To Artifact Dir
         inputs:
           SourceFolder: 'computerVision/'
           Contents: '**'
           TargetFolder: '$(Build.ArtifactStagingDirectory)'
-      - bash: "ls $(Build.ArtifactStagingDirectory)"
-      - bash: "cat $(Build.ArtifactStagingDirectory)/azuredeploy.json"
 
       - task: AzureResourceManagerTemplateDeployment@3
+        displayName: Validate ARM template
         inputs:
           deploymentScope: 'Resource Group'
           azureResourceManagerConnection: 'Pay-As-You-Go(7eb18278-1682-4ad9-9148-814e2b6039f9)'
@@ -37,6 +37,7 @@ stages:
           deploymentMode: 'Validation'
 
       - task: AzureResourceManagerTemplateDeployment@3
+        displayName: Incrementally apply ARM template
         inputs:
           deploymentScope: 'Resource Group'
           azureResourceManagerConnection: 'Pay-As-You-Go(7eb18278-1682-4ad9-9148-814e2b6039f9)'
@@ -46,5 +47,5 @@ stages:
           location: 'West Europe'
           templateLocation: 'Linked artifact'
           csmFile: '$(Build.ArtifactStagingDirectory)/azuredeploy.json'
-          deploymentMode: 'Validation'
+          deploymentMode: 'Incremental'
 

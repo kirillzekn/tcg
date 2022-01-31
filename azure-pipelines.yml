@@ -22,10 +22,7 @@ stages:
           Contents: '**'
           TargetFolder: '$(Build.ArtifactStagingDirectory)'
       - bash: "ls $(Build.ArtifactStagingDirectory)"
-    
 
-- stage: VALIDATE_ARM
-  jobs:
   - job:
     displayName: Validate ARM template
     steps:

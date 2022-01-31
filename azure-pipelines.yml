@@ -10,9 +10,11 @@ pool:
   vmImage: ubuntu-latest
 
 stages:
-- stage: create resource group & deploy template
+- stage: Copy_Files
+  
   jobs:
-  - job: copy_ARM_template_to_artifact_DIR
+  - job:
+    displayName: Copy files
     steps:
       - task: CopyFiles@2
         inputs:
@@ -20,9 +22,10 @@ stages:
           Contents: '**'
           TargetFolder: '$(Build.ArtifactStagingDirectory)'
 
-- stage: VALIDATE create resource group & deploy template
+- stage: VALIDATE_ARM
   jobs:
-  - job: VALIDATE
+  - job:
+    displayName: Validate ARM template
     steps:
     - task: AzureResourceManagerTemplateDeployment@3
       inputs:
@@ -36,9 +39,10 @@ stages:
         csmFile: '$(Build.ArtifactStagingDirectory)/azuretemplate.json'
         deploymentMode: 'Validation'
 
-- stage: incrementally create resource group & deploy template
+- stage: INCREMENTALLY_APPLY_ARM
   jobs:
-  - job: INCREMENTAL
+  - job:
+    displayName: Incrementally apply ARM template
     steps:        
     - task: AzureResourceManagerTemplateDeployment@3
       inputs:

@@ -14,19 +14,22 @@ steps:
   inputs:
     provider: 'azurerm'
     command: 'init'
+    workingDirectory: '$(System.DefaultWorkingDirectory)'
     backendServiceArm: 'Pay-As-You-Go(7eb18278-1682-4ad9-9148-814e2b6039f9)'
     backendAzureRmResourceGroupName: 'epam-tf-backeng-rg'
     backendAzureRmStorageAccountName: 'epamtfbackendstorage'
     backendAzureRmContainerName: 'terraform-tcg'
     backendAzureRmKey: 'terraform.tfstate'
-
+- bash: "echo $(System.DefaultWorkingDirectory)"
 - task: TerraformTaskV2@2
   inputs:
     provider: 'azurerm'
     command: 'validate'
+    workingDirectory: '$(System.DefaultWorkingDirectory)'
 
 - task: TerraformTaskV2@2
   inputs:
     provider: 'azurerm'
     command: 'plan'
     environmentServiceNameAzureRM: 'Pay-As-You-Go(7eb18278-1682-4ad9-9148-814e2b6039f9)'
+    workingDirectory: '$(System.DefaultWorkingDirectory)'

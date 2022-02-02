@@ -1,3 +1,25 @@
+terraform {
+  backend "azurerm" {
+  storage_account_name = "epamtfbackendstorage"
+  container_name = "terraform-tcg"
+  key = "terraform.tfstate"
+
+  }
+  required_providers {
+    azurerm = {
+      source = "hashicorp/azurerm"
+      version = "~> 2.26"
+    }
+  }
+}
+
+
+provider "azurerm" {
+  features {}
+}
+
+###############################
+
 resource "azurerm_resource_group" "rg" {
   name     = "TCG-TF"
   location = "West Europe"

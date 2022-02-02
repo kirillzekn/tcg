@@ -43,10 +43,20 @@ stages:
           deploymentScope: 'Resource Group'
           azureResourceManagerConnection: 'Pay-As-You-Go(7eb18278-1682-4ad9-9148-814e2b6039f9)'
           subscriptionId: '7eb18278-1682-4ad9-9148-814e2b6039f9'
-          action: 'Create Or Update Resource Group'
+          action: 'DeleteRG'
           resourceGroupName: 'TCG-ARM'
-          location: 'West Europe'
-          templateLocation: 'Linked artifact'
-          csmFile: '$(Build.ArtifactStagingDirectory)/azuredeploy.json'
-          deploymentMode: 'Incremental'
+
+      # - task: AzureResourceManagerTemplateDeployment@3
+      #   displayName: Incrementally apply ARM template
+      #   inputs:
+      #     deploymentScope: 'Resource Group'
+      #     azureResourceManagerConnection: 'Pay-As-You-Go(7eb18278-1682-4ad9-9148-814e2b6039f9)'
+      #     subscriptionId: '7eb18278-1682-4ad9-9148-814e2b6039f9'
+      #     action: 'Create Or Update Resource Group'
+      #     resourceGroupName: 'TCG-ARM'
+      #     location: 'West Europe'
+      #     templateLocation: 'Linked artifact'
+      #     csmFile: '$(Build.ArtifactStagingDirectory)/azuredeploy.json'
+      #     deploymentMode: 'Incremental'
+
 

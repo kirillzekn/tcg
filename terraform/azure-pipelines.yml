@@ -4,7 +4,7 @@
 # https://aka.ms/yaml
 
 trigger:
-- main
+#- main
 
 pool:
   vmImage: ubuntu-latest
@@ -37,6 +37,6 @@ steps:
 - task: TerraformTaskV2@2
   inputs:
     provider: 'azurerm'
-    command: 'apply'
+    command: 'destroy'
     workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/'
     environmentServiceNameAzureRM: 'Pay-As-You-Go(7eb18278-1682-4ad9-9148-814e2b6039f9)'

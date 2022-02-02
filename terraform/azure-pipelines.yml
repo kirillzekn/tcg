@@ -22,7 +22,7 @@ steps:
     backendAzureRmStorageAccountName: 'epamtfbackendstorage'
     backendAzureRmContainerName: 'terraform-tcg'
     backendAzureRmKey: 'terraform.tfstate'
-- bash: "echo $(System.DefaultWorkingDirectory)"
+
 - task: TerraformTaskV2@2
   inputs:
     provider: 'azurerm'
